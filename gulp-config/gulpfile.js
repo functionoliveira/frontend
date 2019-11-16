@@ -5,6 +5,7 @@ const browserSync = require('browser-sync');
 const sourcemaps = require('gulp-sourcemaps');
 const bourbon = require('bourbon').includePaths;
 const neat = require('bourbon-neat').includePaths;
+const concat = require('gulp-concat');
 
 // const sass_lint = require('gulp-sass-lint');
 // const image = require('gulp-image');
@@ -15,8 +16,24 @@ const neat = require('bourbon-neat').includePaths;
 //         .pipe(gulp.dest('./assets/img/'));
 // });
 
+gulp.task('scripts-components', function() {
+    return gulp.src('./src/scripts/components/**/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(concat('all.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./assets/js/components/'));
+});
+
+gulp.task('scripts-core', function() {
+    return gulp.src('./src/scripts/core/**/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(concat('all.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./assets/js/core/'));
+});
+
 gulp.task('scripts', function() {
-    return gulp.src('./src/scripts/**/main.js')
+    return gulp.src('./src/scripts/main.js')
         .pipe(gulp.dest('./assets/js/'));
 });
 
@@ -52,7 +69,6 @@ gulp.task('modules-minify', gulp.series('modules'), function() {
     .pipe(cssnano())               
     .pipe(gulp.dest('./assets/css/modules/'))
     .pipe(browserSync.stream());        
-    browserSync.reload();
 });
 
 gulp.task('watch', function() {
@@ -66,11 +82,17 @@ gulp.task('watch', function() {
           debounceDelay: 1000
         }
     });
-    gulp.watch('./src/scripts/**/*.js', gulp.series('scripts'));
+    gulp.watch('./src/scripts/main.js', gulp.series('scripts'));
+    gulp.watch('./src/scripts/components/**/*.js', gulp.series('scripts-components'));
+    gulp.watch('./src/scripts/core/**/*.js', gulp.series('scripts-core'));
     gulp.watch('./src/styles/components/*.scss', gulp.series('components-minify'));
     gulp.watch('./src/styles/modules/*.scss', gulp.series('modules-minify'));
     gulp.watch('./src/scripts/**/*.js').on('change', browserSync.reload);
     gulp.watch('./src/styles/components/*.scss').on('change', browserSync.reload);
     gulp.watch('./src/styles/modules/*.scss').on('change', browserSync.reload);
     gulp.watch("./*.html").on('change', browserSync.reload);
+});
+
+gulp.task('build', function() {
+    return gulp.series('scripts', 'scripts-components', 'scripts-core', 'components-minify', 'modules-minify')();
 });

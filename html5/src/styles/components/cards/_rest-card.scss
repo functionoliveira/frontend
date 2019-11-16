@@ -4,6 +4,10 @@
     border-radius: 2px;
     perspective: 1000px;
 
+    * {
+        cursor: pointer; 
+    }
+
     &__inner{
         position: relative;
         width: 100%;

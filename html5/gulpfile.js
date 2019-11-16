@@ -85,11 +85,12 @@ gulp.task('watch', function() {
     gulp.watch('./src/scripts/main.js', gulp.series('scripts'));
     gulp.watch('./src/scripts/components/**/*.js', gulp.series('scripts-components'));
     gulp.watch('./src/scripts/core/**/*.js', gulp.series('scripts-core'));
-    gulp.watch('./src/styles/components/*.scss', gulp.series('components-minify'));
+    gulp.watch('./src/styles/components/**/*.scss', gulp.series('components-minify'));
     gulp.watch('./src/styles/modules/*.scss', gulp.series('modules-minify'));
     gulp.watch('./src/scripts/**/*.js').on('change', browserSync.reload);
-    gulp.watch('./src/styles/components/*.scss').on('change', browserSync.reload);
-    gulp.watch('./src/styles/modules/*.scss').on('change', browserSync.reload);
+    gulp.watch('./src/styles/**/*.scss').on('change', browserSync.reload);
+    // gulp.watch('./src/styles/components/*.scss').on('change', browserSync.reload);
+    // gulp.watch('./src/styles/modules/*.scss').on('change', browserSync.reload);
     gulp.watch("./*.html").on('change', browserSync.reload);
 });
 

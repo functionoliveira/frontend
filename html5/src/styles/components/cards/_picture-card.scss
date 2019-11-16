@@ -3,8 +3,12 @@
     width: 25vw;
     margin-bottom: auto;
     border-radius: 2px;
-    box-shadow: 1px 1px 10px 4px #d0c5cc;
+    box-shadow: 1px 1px 4px 2px #d0c5cc;
     overflow: hidden;
+
+    * {
+        cursor: pointer; 
+    }
 
     &__frame {
         width: 100%;

@@ -4,12 +4,12 @@
     height: 31.25vw;
     margin-bottom: auto;
     border-radius: 2px;
-    box-shadow: 1px 1px 10px 4px #d0c5cc;
+    box-shadow: 1px 1px 4px 2px #d0c5cc;
     overflow: hidden;
     transition: 0.5s height ease-in-out;
     
     * {
-        cursor: pointer;
+        cursor: pointer; 
     }
 
     &__frame {

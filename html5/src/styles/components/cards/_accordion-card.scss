@@ -1,10 +1,16 @@
 .accordion-card {
     position: relative;
     width: 25vw;
+    height: 31.25vw;
     margin-bottom: auto;
     border-radius: 2px;
     box-shadow: 1px 1px 10px 4px #d0c5cc;
     overflow: hidden;
+    transition: 0.5s height ease-in-out;
+    
+    * {
+        cursor: pointer;
+    }
 
     &__frame {
         width: 100%;
@@ -18,7 +24,7 @@
     }
 
     &__content {
-        height: 0;
+        padding: 4vw; 
     }
 
     &__open {
@@ -32,12 +38,8 @@
         z-index: 20;
         font-weight: bold;
         transition: 0.3s opacity ease-in-out;
-    }
-
-    &:hover {
-        .accordion-card__content {
-            height: 100%;
-            padding: 4vw;
+        &.hide {
+            opacity: 0;
         }
     }
 }

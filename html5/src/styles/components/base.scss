@@ -1,8 +1,10 @@
 
 @import 'layout';  
 @import 'carousel';   
-@import 'simple-card'; 
-@import 'picture-card';  
-@import 'flip-card';   
-@import 'rest-card';
-@import 'accordion-card';   
+
+// CARDS
+@import './cards/simple-card'; 
+@import './cards/picture-card';  
+@import './cards/flip-card';   
+@import './cards/rest-card';
+@import './cards/accordion-card';   

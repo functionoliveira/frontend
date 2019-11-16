@@ -1,0 +1,22 @@
+.simple-card {
+    width: 25vw;
+    height: auto;
+    border-radius: 2px;
+    box-shadow: 1px 1px 10px 4px #d0c5cc;
+    overflow: hidden;
+
+    &__frame {
+        width: 100%;
+        height: 31.25vw;
+        overflow: hidden;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    &__content {
+        padding: 2vw;
+    }
+}

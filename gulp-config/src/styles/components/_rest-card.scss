@@ -1,0 +1,43 @@
+.rest-card {
+    width: 25vw;
+    margin-bottom: auto;
+    border-radius: 2px;
+    perspective: 1000px;
+
+    &__inner{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        box-shadow: 1px 1px 10px 4px #d0c5cc;
+        transition-property: transform, box-shadow;
+        transition-duration: 0.5s;
+        transition-timing-function: ease-in-out;
+        transform: rotateX(60deg) translateY(-100px);
+        transform-style: preserve-3d;
+
+        &__frame {
+            width: 100%;
+            height: 31.25vw;
+            overflow: hidden;
+            backface-visibility: hidden;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &__content {
+            height: auto;
+            padding: 2vw;
+            overflow: hidden;
+        }
+
+    }
+    &:hover {
+        .rest-card__inner {
+            box-shadow: 1px 1px 4px 2px #d0c5cc;
+            transform: none;
+        }
+    }
+}

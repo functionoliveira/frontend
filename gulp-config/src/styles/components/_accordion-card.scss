@@ -1,0 +1,43 @@
+.accordion-card {
+    position: relative;
+    width: 25vw;
+    margin-bottom: auto;
+    border-radius: 2px;
+    box-shadow: 1px 1px 10px 4px #d0c5cc;
+    overflow: hidden;
+
+    &__frame {
+        width: 100%;
+        height: 31.25vw;
+        overflow: hidden;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    &__content {
+        height: 0;
+    }
+
+    &__open {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        padding: 10px 0;
+        bottom: 0;
+        background: rgba(205,205,205,.5);
+        text-align: center;
+        z-index: 20;
+        font-weight: bold;
+        transition: 0.3s opacity ease-in-out;
+    }
+
+    &:hover {
+        .accordion-card__content {
+            height: 100%;
+            padding: 4vw;
+        }
+    }
+}

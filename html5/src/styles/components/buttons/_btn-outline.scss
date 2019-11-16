@@ -1,0 +1,38 @@
+.btn-outline {
+    position: relative;
+    width: 120px;
+    height: 50px;
+    border: 2px solid #1141e4;
+    border-radius: 2px;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0px 0px 4px 2px rgba(10, 10, 10, .4);
+    transition-delay: 0.1s;
+    transition: 0.65s all ease-in-out;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1141e4;
+
+    &:hover {
+        color: white;
+        box-shadow: 0px 0px 3px 1px rgba(10, 10, 10, .2);
+    }
+
+    .ink {
+        display: block;
+        position: absolute;
+        background: #1141e4;
+        border-radius: 100%;
+        width: 120px;
+        height: 120px;
+        transform: scale(0);
+        transition: 0.65s all ease-in-out;
+        z-index: -1;
+        &.anime {
+            opacity: 0.8;
+            transform: scale(2.5);
+        }
+    }
+}

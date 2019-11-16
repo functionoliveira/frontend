@@ -1,0 +1,60 @@
+.picture-card {
+    position: relative;
+    width: 25vw;
+    margin-bottom: auto;
+    border-radius: 2px;
+    box-shadow: 1px 1px 10px 4px #d0c5cc;
+    overflow: hidden;
+
+    &__frame {
+        width: 100%;
+        height: 31.25vw;
+        overflow: hidden;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__content {
+        position: absolute;
+        bottom: -4vw;
+        left: 0;
+        width: calc(100% - 4vw);
+        height: 0;
+        padding: 2vw;
+        overflow: hidden;
+        background: linear-gradient(180deg, rgba(205,205,205,.5) 0%, rgba(50,50,50,.5) 100%);;
+        transition-property: height, bottom;
+        transition-duration: .5s;
+        transition-timing-function: ease-in-out;
+        z-index: 10;
+    }
+
+    &__info {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        padding: 10px 0;
+        bottom: 0;
+        background: rgba(205,205,205,.5);
+        text-align: center;
+        z-index: 20;
+        font-weight: bold;
+        transition: 0.2s opacity ease-in-out;
+        transition-delay: .3s;
+    }
+
+    &:hover {
+        .picture-card__content {
+            bottom: 0;
+            height: calc(100% - 4vw);
+        }
+
+        .picture-card__info {
+            opacity: 0;
+            transition-delay: 0s;
+        }
+    }
+}

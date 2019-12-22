@@ -48,6 +48,11 @@
         font-weight: bold;
         transition: 0.2s opacity ease-in-out;
         transition-delay: .3s;
+
+        &__arrow {
+            width: 30px;
+            transform: rotate(-90deg);
+        }
     }
 
     &:hover {

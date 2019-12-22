@@ -38,8 +38,14 @@
         z-index: 20;
         font-weight: bold;
         transition: 0.3s opacity ease-in-out;
+        
         &.hide {
             opacity: 0;
+        }
+        
+        &__arrow {
+            width: 30px;
+            transform: rotate(90deg);
         }
     }
 }

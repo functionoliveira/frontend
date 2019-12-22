@@ -55,6 +55,15 @@ class Utils {
     }
 }
 new Utils();
+
+function addEventOneTime(el, type, fn) {
+    function handler(event) {
+        el.removeEventListener(type, handler);
+        fn(event);
+    }
+    el.addEventListener(type, handler);
+}
+
 var validator_error = document.createEvent('Event');
 validator_error.initEvent('validator-error', true, true);
 var validator_field_success = document.createEvent('Event');

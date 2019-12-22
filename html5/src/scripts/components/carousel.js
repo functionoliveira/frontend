@@ -224,15 +224,17 @@ class Carousel extends CarouselOptions {
      * 
      */
     updateIndexes() {
-        var old_number_active = this.carousel.querySelector('.carousel__controllers__index.active');
-        var indexes = this.carousel.querySelectorAll('.carousel__controllers__index');
-        var idx = this.current_item.attr('carousel-index');
-            
-        if(old_number_active != undefined){
-            old_number_active.deleteClass('active');
-        }
+        if(this.show_indexes) {
+            var old_number_active = this.carousel.querySelector('.carousel__controllers__index.active');
+            var indexes = this.carousel.querySelectorAll('.carousel__controllers__index');
+            var idx = this.current_item.attr('carousel-index');
+                
+            if(old_number_active != undefined){
+                old_number_active.deleteClass('active');
+            }
 
-        indexes[idx].addClass('active');
+            indexes[idx].addClass('active');
+        }
     }
 
 
@@ -319,16 +321,24 @@ class CycleCarousel extends Carousel {
     }
 
     slideToRight() {
-        this.content.style = '';    
-        this.content.style.transform = 'translateX(-' +  this.ITEM_SIZE + 'px)';
+        this.block();
+        var items = this.content.querySelectorAll('.carousel__content__item');
+        items.forEach((item) => {
+            item.css({ 'transition' : '0.4s all ease-in-out', 'transform' : 'translateX(' +  (-this.ITEM_SIZE * this.qtd_items) + 'px)' });
+        });
         
-        var _var = setTimeout(() =>{      
-            var first = this.current_item;
-            this.content.removeChild(first);
-            this.content.appendChild(first);
-            this.current_item = this.content.querySelector('.carousel__content__item');          
-            this.content.style.transition = 'none';
-            this.content.style.transform = 'translateX(0)';
+        var _var = setTimeout(() =>{   
+            for(var i = 0; i < this.qtd_items; i++) {   
+                var first = this.current_item;
+                first.remove();
+                this.content.appendChild(first);
+                this.current_item = this.content.querySelector('.carousel__content__item');          
+            }
+            items.forEach((item) => {
+                item.clearStyle();
+            });
+            this.updateIndexes();
+            this.free();
             clearTimeout(_var);
         }, 500);
     }
@@ -337,12 +347,10 @@ class CycleCarousel extends Carousel {
         this.block();
         var items = this.content.querySelectorAll('.carousel__content__item');
         for(var i = 0; i < this.qtd_items; i++){
-            if(this.current_item != this.first_item){
-                var temp = this.content.lastElementChild;
-                this.content.lastElementChild.remove();
-                this.content.prepend(temp);
-                this.current_item = this.content.querySelector('.carousel__content__item');
-            }
+            var temp = this.content.lastElementChild;
+            this.content.lastElementChild.remove();
+            this.content.prepend(temp);
+            this.current_item = this.content.querySelector('.carousel__content__item');
         }
         
         items.forEach((item) => {
@@ -368,13 +376,13 @@ class CycleCarousel extends Carousel {
             this.slideTo('right');
         }, time);
 
-        addEventOneTime(this.carousel, 'mouseover', () => {
+        addEventOneTime(this.carousel, 'mouseenter', () => {
             this.stopAutoSlide(time);
         });
     }
 
     stopAutoSlide(time){
-        addEventOneTime(this.carousel, 'mouseout', () => {
+        addEventOneTime(this.carousel, 'mouseleave', () => {
             this.autoSlide(time);
         });
         clearInterval(this.interval);

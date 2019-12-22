@@ -704,14 +704,59 @@
                 <span class="btn-select__item">.: Click :. ></span>
             </button>
         </section>
+        
+        <!-- Inputs -->
+        <section class="container">
+            <h1 style="width: 100%;">Tipos de Input</h1>
+
+            <div class="text-field">
+                <label class="text-field__hitbox" for="name"></label>
+                <input class="text-field__input" type="text" maxlength="50" id="name" name="name" placeholder=" " data-type="text" rules="required" />
+                <label class="text-field__label" for="name">Nome</label>
+            </div>
+
+            <div class="checkbox-field">
+                <label class="checkbox-field__box" for="authorization"></label>
+                <input class="checkbox-field__input" type="checkbox" id="authorization" name="contact_terms" data-type="checkbox" rules="required" />
+                <label class="checkbox-field__label" for="authorization">Aceito os <a href="#">termos de uso</a></label>
+            </div>
+
+            <div class="textarea-field">
+                <label class="textarea-field__hitbox" for="message"></label>
+                <textarea class="textarea-field__input" type="text" maxlength="255" minlength="10" id="message" name="message" data-type="text" rules="required" placeholder=" " ></textarea>
+                <label class="textarea-field__label" for="message">Mensagem</label>
+            </div>
+
+            <div class="select-field">
+                <div class="select-field__base">
+                    <input class="select-field__base__input" type="text" maxlength="50" id="topic" name="subject" data-type="text" rules="required" placeholder=" " disabled />
+                    <label class="select-field__base__label">Assunto</label>
+                    <span class="select-field__base__arrow">
+                        <svg version="1.1" class="select-field__base__arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 492.004 492.004;" xml:space="preserve">
+                            <g>
+                                <g>
+                                    <path d="M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12
+                                        c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028
+                                        c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265
+                                        c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z"/>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                </div>
+                <div class="select-field__options">
+                    <div class="select-field__options__item" value="Elogio">Elogio</div>
+                    <div class="select-field__options__item" value="Dúvida">Dúvida</div>
+                    <div class="select-field__options__item" value="Informações">Informações</div>
+                </div>
+            </div>
+        </section>
 
         <div class="container">
             Modal
         </div>
 
-        <div class="container">
-            Formulário
-        </div>
 
         <div class="container">
             Player

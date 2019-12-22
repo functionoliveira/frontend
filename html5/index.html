@@ -15,26 +15,271 @@
         <script src="./assets/js/main.js"></script>
     </head>
     <body>
-        <!-- <header>
-            <nav>
-                <ul class="main-menu">
-                    <li class="main-menu__child">
-                        Item Um
-                        <ul class="submenu">
-                            <li class="submenu__child">Subitem Um</li>
-                            <li class="submenu__child">Subitem Dois</li>
-                            <li class="submenu__child">Subitem Três</li>
-                        </ul>
-                    </li>
-                    <li class="main-menu__child">Item Dois</li>
-                    <li class="main-menu__child">Item Três</li>
-                </ul>
-            </nav>
-        </header> -->
+        <section class="container">
+            <h1 style="width: 100%;">Carrosel Simples</h1> 
+            <div class="carousel" id="carousel_0">
+                <div class="carousel__content">
+                    <div class="carousel__content__item" id="item_0" carousel-index="0">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
 
-        <div class="container">
-            SLIDER
-        </div>
+                    <div class="carousel__content__item" id="item_1" carousel-index="1">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="carousel__content__item" id="item_2" carousel-index="2">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="carousel__content__item" id="item_3" carousel-index="3">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            
+                <div class="carousel__controllers">
+                    <svg version="1.1" class="carousel__controllers__previous" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 492.004 492.004;" xml:space="preserve">
+                        <g>
+                            <g>
+                                <path d="M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12
+                                    c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028
+                                    c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265
+                                    c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z"/>
+                            </g>
+                        </g>
+                    </svg>
+
+                    <label class="carousel__controllers__index" id="index_0">01</label>
+                    <label class="carousel__controllers__index" id="index_1">02</label>
+                    <label class="carousel__controllers__index" id="index_3">03</label>
+                    <label class="carousel__controllers__index" id="index_4">04</label>
+
+                    <svg version="1.1" class="carousel__controllers__next" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 492.004 492.004;" xml:space="preserve">
+                        <g>
+                            <g>
+                                <path d="M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12
+                                    c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028
+                                    c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265
+                                    c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z"/>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+            <h1 style="width: 100%;">Carrosel Sem Ação</h1> 
+            <div class="carousel" id="carousel_1">
+                <div class="carousel__content">
+                    <div class="carousel__content__item" id="item_0">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="carousel__content__item" id="item_1">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            
+                <div class="carousel__controllers">
+                    <svg version="1.1" class="carousel__controllers__previous" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 492.004 492.004;" xml:space="preserve">
+                        <g>
+                            <g>
+                                <path d="M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12
+                                    c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028
+                                    c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265
+                                    c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z"/>
+                            </g>
+                        </g>
+                    </svg>
+
+                    <label class="carousel__controllers__index" id="index_0">01</label>
+                    <label class="carousel__controllers__index" id="index_1">02</label>
+
+                    <svg version="1.1" class="carousel__controllers__next" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 492.004 492.004;" xml:space="preserve">
+                        <g>
+                            <g>
+                                <path d="M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12
+                                    c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028
+                                    c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265
+                                    c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z"/>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+            <h1 style="width: 100%;">Carrosel Ciclico</h1> 
+            <div class="carousel" id="cycle_carousel">
+                <div class="carousel__content">
+                    <div class="carousel__content__item" id="item_0" carousel-index="0">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="carousel__content__item" id="item_1" carousel-index="1">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="carousel__content__item" id="item_2" carousel-index="2">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="carousel__content__item" id="item_3" carousel-index="3">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="carousel__content__item" id="item_4" carousel-index="4">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="carousel__content__item" id="item_5" carousel-index="5">
+                            <div class="simple-card">
+                                <div class="simple-card__frame">
+                                    <img src="./assets/img/cards/320x400.png" alt="" />
+                                </div>
+                                <div class="simple-card__content">
+                                    <h5>Card Simples</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget lorem mi amet.</p>
+                                    <button class="btn btn-primary">Ver Mais</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            
+                <div class="carousel__controllers">
+                    <svg version="1.1" class="carousel__controllers__previous" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 492.004 492.004;" xml:space="preserve">
+                        <g>
+                            <g>
+                                <path d="M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12
+                                    c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028
+                                    c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265
+                                    c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z"/>
+                            </g>
+                        </g>
+                    </svg>
+
+                    <label class="carousel__controllers__index" id="index_0">01</label>
+                    <label class="carousel__controllers__index" id="index_1">02</label>
+                    <label class="carousel__controllers__index" id="index_2">03</label>
+                    <label class="carousel__controllers__index" id="index_3">04</label>
+                    <label class="carousel__controllers__index" id="index_4">05</label>
+                    <label class="carousel__controllers__index" id="index_5">06</label>
+
+                    <svg version="1.1" class="carousel__controllers__next" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 492.004 492.004" style="enable-background:new 0 0 492.004 492.004;" xml:space="preserve">
+                        <g>
+                            <g>
+                                <path d="M382.678,226.804L163.73,7.86C158.666,2.792,151.906,0,144.698,0s-13.968,2.792-19.032,7.86l-16.124,16.12
+                                    c-10.492,10.504-10.492,27.576,0,38.064L293.398,245.9l-184.06,184.06c-5.064,5.068-7.86,11.824-7.86,19.028
+                                    c0,7.212,2.796,13.968,7.86,19.04l16.124,16.116c5.068,5.068,11.824,7.86,19.032,7.86s13.968-2.792,19.032-7.86L382.678,265
+                                    c5.076-5.084,7.864-11.872,7.848-19.088C390.542,238.668,387.754,231.884,382.678,226.804z"/>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
 
         <div class="container">
             Modal

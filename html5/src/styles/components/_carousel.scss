@@ -1,10 +1,96 @@
-.carousel {
-    display: flex;
-    width: 100vw;
-    height: 300px;
+.carousel{
+    padding-bottom: 50px;
+    overflow: hidden;
 
-    &__item {
-        width: auto;
-        height: 100%;
+    &__content{
+        position: relative;
+        display: flex;
+        transition: .5s all ease-in-out;
+
+        &:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,.2) 75%, rgba(255,255,255,.01) 100%);
+        }
+
+        &:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.9) 60%, white 100%)
+        }
+
+        &:before, &:after {
+            content: '';
+            width: 60px;
+            height: 100%;
+            z-index: 999;
+        }
+    }
+    &__controllers{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 25px;
+        
+        &__previous{
+            width: 30px;
+            cursor: pointer;
+            transform: rotate(180deg);
+            margin-right: 1vw; 
+            &.disable {
+                opacity: 0.4;
+                cursor: not-allowed;
+            }
+        } 
+        &__next{
+            width: 30px;
+            cursor: pointer;
+            margin-left: 1vw; 
+            &.disable {
+                opacity: 0.4;
+                cursor: not-allowed;
+            }
+        }  
+        &__index {
+            margin: 0 1rem;
+            color: silver;
+            transition: 0.3s color ease-in-out;
+            
+            &.active {
+                color: #323232;
+            }
+        }   
+    }
+
+    @include mediabreak-max(sm){
+        &__controllers{
+            left: 0;
+            &__previous {
+                display: none;
+            }
+
+            &__next {
+                display: none; 
+            }
+            
+            &__number {
+                width: 12vw;
+                height: 2px;
+                margin: 0 .5rem;
+                color: transparent;
+                background-color: silver;
+                transition-property: background-color, width;
+                transition-duration: 0.3s;
+                transition-timing-function: ease-in-out;
+                
+                &.active {
+                    width: 20vw;
+                    background-color: #323232;
+                    color: transparent;
+                }
+            }
+        }            
     }
 }

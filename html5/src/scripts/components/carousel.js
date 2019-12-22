@@ -1,55 +1,69 @@
-class Carousel {
-    constructor(carousel, cicle, showCounters, animation=null){
-        this.animation = animation;
-        // console.log(carousel);
-        this.show_counters = showCounters == undefined ? false : showCounters;
+class CarouselOptions {
+    constructor(options) {
+        if(options.animation_left) { this.constructor.prototype.slideToLeft = options.animation_left; }
+        if(options.animation_right) { this.constructor.prototype.slideToRight = options.animation_right; }
+        this.show_indexes = options.show_indexes ? options.show_indexes : null;
+        this.show_timer = options.show_timer ? options.show_timer : null;
+        this.qtd_items = options.qtd_items ? options.qtd_items : null;
+    }
+}
+
+/** Class representa um carrossel html. */
+class Carousel extends CarouselOptions {
+    /**
+     * Cria uma instancia de carrossel.
+     * @param {HTMLElement} carousel - O elemento html base do carrossel.
+     * @param {JSON} options - JSON com opções para o carrossel, { show_indexes : Boolean, qtd_items : Number, animation_left : function, animation_right : function }.
+     */ 
+    constructor(carousel, options={ show_indexes : true, qtd_items : 1, animation_left : null, animation_right : null }){
+        super(options);
+
+        // flag controla bloqueio em meio a animação
+        this.blocked = false;
         // conteúdos html do carrossel
         this.carousel = carousel;
-        this.content = this.carousel.querySelector('.carousel__content');
-        this.current_item = this.carousel.querySelector('.carousel__content__item');
-        this.is_cicle = cicle == undefined ? false : cicle;
-        this.last_child = this.content.lastElementChild;
+        this.content = carousel.querySelector('.carousel__content');
+        this.current_item = carousel.querySelector('.carousel__content__item');
+        this.first_item = carousel.querySelector('.carousel__content__item'); 
+        this.last_item = this.content.lastElementChild; 
+        // controllers
+        this.previous = carousel.querySelector('.carousel__controllers__previous');
+        this.next = carousel.querySelector('.carousel__controllers__next');
+        this.indexes = carousel.querySelectorAll('.carousel__controllers__index');
         // medidas de tela, carrossel e item
-        this.rect = this.content.getBoundingClientRect();
-        this.SLIDER_WIDTH = Number(this.content.offsetWidth);
+        this.content_dimension = this.content.getBoundingClientRect();
         this.SCREE_SIZE = Number(window.innerWidth); 
         this.translate = 0;
+        this.initialize();
+    }
 
-        // var last_child_rect = this.last_child.getBoundingClientRect();
-        if(this.last_child && !this.validate()) {
+    initialize() {
+        if(this.last_item && !this.validate()) {
             this.ITEM_SIZE = Number(this.current_item.offsetWidth);
-            // controllers
-            this.previous = carousel.querySelector('.carousel__controllers__previous');
-            this.next = carousel.querySelector('.carousel__controllers__previous');
-
             // Realiza o bind dos eventos necessários para que o componente funcione
-            this.carousel.addEventListener('touchstart', (evt) => {  this.touchStart(evt) }); 
-            this.carousel.addEventListener('touchmove', (evt) => {  this.touchMove(evt) }); 
-            this.carousel.addEventListener('touchend', (evt) => {  this.touchEnd(evt) }); 
-            this.carousel.addEventListener('click', (evt) => {
-                var clicked = evt.target;
-                if(clicked.classList.contains('carousel__controllers__previous')){
-                    this.slideTo('left');
-                }
-                if(clicked.classList.contains('carousel__controllers__next')){
-                    this.slideTo('right');
-                }  
-            });     
+            this.bindAction();     
+            this.hideOrActiveIndexes();
+            this.disableRightButton();
+            this.disableLeftButton();
             window.onresize = () => { this.updateSizes() };
-
-            this.hideCounters();    
-            if(this.show_counters) {
-                carousel.querySelector('.carousel__controllers__number').classList.add('active');
-            }
         }else{
-            carousel.querySelector('.carousel__controllers').addClass('hide');
+            this.carousel.querySelector('.carousel__controllers').remove();
         }
+    }
+
+    bindAction() {
+        this.carousel.addEventListener('touchstart', (evt) => {  this.touchStart(evt) }); 
+        this.carousel.addEventListener('touchmove', (evt) => {  this.touchMove(evt) }); 
+        this.carousel.addEventListener('touchend', (evt) => {  this.touchEnd(evt) }); 
+
+        this.next.addEventListener('click', (evt) => { this.slideTo('right') });
+        this.previous.addEventListener('click', (evt) => { this.slideTo('left') });
     }
 
     validate() {
         var screen_width = Number(window.innerWidth); 
         var end_slider_content = Number(this.content.getBoundingClientRect().right);
-        var end_last_item =  this.content.lastElementChild.getBoundingClientRect().right;
+        var end_last_item = this.content.lastElementChild.getBoundingClientRect().right;
 
         if(end_last_item > screen_width || end_last_item > end_slider_content) {
             return false;
@@ -60,98 +74,95 @@ class Carousel {
 
     slideTo(side) {
         // console.log('slide to', side);
-        if(this.is_cicle){
-            if(side == 'left'){
-                this.slideToLeft();
-            }
-            if(side == 'right'){
-                this.slideToRight();    
-            }
-        }else{
-            var max = -(this.rect.width - this.SCREE_SIZE -this.ITEM_SIZE + this.rect.left);
-            if(side == 'left' && this.translate < 0){
-                this.slideToLeft();
-                return; 
-            }
-            if(side == 'right' && this.translate > max){
-                this.slideToRight();
-                return; 
-            }
-            this.content.style.transform = 'translate('+ this.translate +'px)';
+        if(this.blocked){
+            return;
         }
 
-        this.counterUpdate();
+        if(side == 'left' && this.current_item != this.first_item){
+            this.slideToLeft();
+            return; 
+        }
+        if(side == 'right' && this.current_item != this.last_item){
+            this.slideToRight();
+            return; 
+        }
+        this.content.style.transform = 'translate('+ this.translate +'px)';
     }
 
     slideToRight() {
-        if(this.is_cicle){
-            if(this.animation) {
-                this.animation('right', this);
-                return;
-            }
-            this.content.style = '';    
-            this.content.style.transform = 'translateX(-' +  this.ITEM_SIZE + 'px)';
-            
-            var _var = setTimeout(() =>{      
-                var first = this.current_item;
-                this.content.removeChild(first);
-                this.content.appendChild(first);
-                this.current_item = this.content.querySelector('.carousel__content__item');          
-                this.content.style.transition = 'none';
-                this.content.style.transform = 'translateX(0)';
-                clearTimeout(_var);
-            }, 500);
-            
-        }else{
-            if(this.animation) {
-                this.animation('right', this);
-                return;
-            }
-            this.translate -= this.ITEM_SIZE;
-            this.content.style.transform = 'translateX(' +  this.translate + 'px)';
-        }
+        this.block();
 
-        // console.log("Distance : " + this.translate);
+        // movimento lateralmente para a esquerda os itens do carrossel
+        var items = this.content.querySelectorAll('.carousel__content__item');
+        items.forEach((item) => {
+            item.css({ 'transition' : '0.4s all ease-in-out', 'transform' : 'translateX(' +  (-this.ITEM_SIZE * this.qtd_items) + 'px)' });
+        });
+                
+        // reorganiza a lista movimento os itens de posição igual a quantidade de vezes passa no options (default 1)
+        setTimeout(() => {
+            for(var i = 0; i < this.qtd_items; i++){
+                if(this.current_item != this.last_item){
+                    var temp = this.current_item;
+                    this.current_item.remove();
+                    this.current_item = this.content.querySelector('.carousel__content__item');
+                    this.content.appendChild(temp);
+                }
+            }
+            this.updateIndexes();
+            this.free();
+            this.disableRightButton();
+            this.disableLeftButton();
+            items.forEach((item) => {
+                item.clearStyle();
+            });
+        }, 500);        
     }
 
     slideToLeft() {
-        if(this.is_cicle){
-            if(this.animation) {
-                this.animation('left', this);
-                return;
+        this.block();
+        var items = this.content.querySelectorAll('.carousel__content__item');
+        for(var i = 0; i < this.qtd_items; i++){
+            if(this.current_item != this.first_item){
+                var temp = this.content.lastElementChild;
+                this.content.lastElementChild.remove();
+                this.content.prepend(temp);
+                this.current_item = this.content.querySelector('.carousel__content__item');
             }
-            this.content.style.transition = 'none';
-            this.content.style.transform = 'translateX(-' +  this.ITEM_SIZE + 'px)';
-            var last = this.content.querySelector('.carousel__content__item:last-child');
-            this.content.removeChild(last);
-            this.content.prepend(last);
-            this.current_item = this.content.querySelector('.carousel__content__item');
-            var _var = setTimeout(() =>{
-                this.content.style = ''; 
-                this.content.style.transform = 'translateX(0)';
-                clearTimeout(_var);
-            }, 10);
+        }
+        
+        items.forEach((item) => {
+            item.css({ 'transform' : 'translateX(' +  (-this.ITEM_SIZE*this.qtd_items) + 'px)' });
+        });
+        setTimeout(() => {
+            items.forEach((item) => {
+                item.css({ 'transition' : '.4s all ease-in-out', 'transform' : 'translateX(0px)' });
+            });
+        }, 100);
+                
+        setTimeout(() => {
+            this.updateIndexes();
+            this.free();
+            this.disableRightButton();
+            this.disableLeftButton();
+            items.forEach((item) => {
+                item.clearStyle();
+            });
+        }, 500);
+    }
 
+    disableLeftButton() {
+        if(this.current_item == this.first_item){
+            this.previous.classList.add('disable');
         }else{
-            this.translate += this.ITEM_SIZE;
-            this.content.style.transform = 'translateX(' +  this.translate + 'px)';
-        }
-        // console.log("Distance : " + this.translate);
-    }
-
-    hideLeftButton() {
-        if (this.translate < 0) {
-            this.previous.classList.add('hide');
-        } else {
-            this.previous.classList.remove('hide');
+            this.previous.classList.remove('disable');
         }
     }
 
-    hideRightButton(max) {
-        if (this.translate < -max) {
-            this.next.classList.remove('hide');
-        } else {
-            this.next.classList.add('hide');
+    disableRightButton() {
+        if(this.current_item == this.last_item){
+            this.next.classList.add('disable');
+        }else{
+            this.next.classList.remove('disable');
         }
     }
 
@@ -203,9 +214,157 @@ class Carousel {
         this.ITEM_SIZE = Number(this.current_item.offsetWidth);     
     }
 
+    /**
+     * Função interna da classe Carousel, atualiza os indexes do carrossel
+     * após uma passagem de slide
+     * 
+     * @example
+     *   var carousel = new Carousel(html); // instanciando objeto carrossel
+     *   carousel.block(); // bloqueia controles
+     * 
+     */
+    updateIndexes() {
+        var old_number_active = this.carousel.querySelector('.carousel__controllers__index.active');
+        var indexes = this.carousel.querySelectorAll('.carousel__controllers__index');
+        var idx = this.current_item.attr('carousel-index');
+            
+        if(old_number_active != undefined){
+            old_number_active.deleteClass('active');
+        }
+
+        indexes[idx].addClass('active');
+    }
+
+
+    /**
+     * Função interna da classe Carousel, verifica a flag opcional show_indexes
+     * caso seja verdadeira activa o primeiro item do carrossel, caso não seja 
+     * busca elementos html index para remover.
+     * 
+     * @example 
+     *   this.block(); // bloqueia controles
+     * 
+     */
+    hideOrActiveIndexes() {
+        if(this.show_indexes) {
+            this.indexes[0].addClass('active');
+        }else{
+            this.indexes.forEach((number) => {
+                number.remove();
+            });   
+        }
+    }
+
+    /**
+     * Função interna da classe Carousel, bloqueia os controles do carrossel
+     * impede novo slider seja para direita ou para esquerda disabilitando
+     * as setas
+     * 
+     * @example 
+     *   this.block(); // bloqueia controles
+     * 
+     */
+    block() {
+        this.blocked = true;
+        this.previous.classList.add('disable');
+        this.next.classList.add('disable');
+    }
+
+    /**
+     * Função interna da classe Carousel, desbloqueia os controles do carrossel
+     * utilizada no termino de um evento de slide para retornar o evento de clique
+     * das setas
+     * 
+     * @example 
+     *   this.block(); // bloqueia controles
+     * 
+     */
+    free() {
+        this.blocked = false;
+        this.previous.classList.remove('disable');
+        this.next.classList.remove('disable');
+    }
+}
+
+class CycleCarousel extends Carousel {
+    constructor(carousel, options={ show_indexes : true, qtd_items : 1, animation_left : null, animation_right : null }) {
+        super(carousel, options);
+    }
+
+    initialize() {
+        if(this.last_item && !this.validate()) {
+            this.ITEM_SIZE = Number(this.current_item.offsetWidth);
+            // Realiza o bind dos eventos necessários para que o componente funcione
+            this.bindAction();     
+            this.hideOrActiveIndexes();
+            window.onresize = () => { this.updateSizes() };
+        }else{
+            carousel.querySelector('.carousel__controllers').remove();
+        }
+    }
+
+    slideTo(side) {
+        if(this.blocked){
+            return;
+        }
+
+        if(side == 'left'){
+            this.slideToLeft();
+            return; 
+        }
+        if(side == 'right'){
+            this.slideToRight();
+            return; 
+        }
+    }
+
+    slideToRight() {
+        this.content.style = '';    
+        this.content.style.transform = 'translateX(-' +  this.ITEM_SIZE + 'px)';
+        
+        var _var = setTimeout(() =>{      
+            var first = this.current_item;
+            this.content.removeChild(first);
+            this.content.appendChild(first);
+            this.current_item = this.content.querySelector('.carousel__content__item');          
+            this.content.style.transition = 'none';
+            this.content.style.transform = 'translateX(0)';
+            clearTimeout(_var);
+        }, 500);
+    }
+
+    slideToLeft() {
+        this.block();
+        var items = this.content.querySelectorAll('.carousel__content__item');
+        for(var i = 0; i < this.qtd_items; i++){
+            if(this.current_item != this.first_item){
+                var temp = this.content.lastElementChild;
+                this.content.lastElementChild.remove();
+                this.content.prepend(temp);
+                this.current_item = this.content.querySelector('.carousel__content__item');
+            }
+        }
+        
+        items.forEach((item) => {
+            item.css({ 'transform' : 'translateX(' +  (-this.ITEM_SIZE*this.qtd_items) + 'px)' });
+        });
+        setTimeout(() => {
+            items.forEach((item) => {
+                item.css({ 'transition' : '.4s all ease-in-out', 'transform' : 'translateX(0px)' });
+            });
+        }, 100);
+                
+        setTimeout(() => {
+            this.updateIndexes();
+            this.free();
+            items.forEach((item) => {
+                item.clearStyle();
+            });
+        }, 500);
+    }
+
     autoSlide(time){
         this.interval = setInterval(() => {
-            // this.carousel.querySelector('.carousel__controllers__next').click();
             this.slideTo('right');
         }, time);
 
@@ -219,27 +378,5 @@ class Carousel {
             this.autoSlide(time);
         });
         clearInterval(this.interval);
-    }
-
-    counterUpdate() {
-        if(this.show_counters) {
-            var old_number_active = this.carousel.querySelector('.carousel__controllers__number.active');
-            var numbers = this.carousel.querySelectorAll('.carousel__controllers__number');
-            var idx = this.current_item.getAttribute('id') == numbers.length ? 0 : Number(this.current_item.getAttribute('id'));
-              
-            if(old_number_active != undefined){
-                old_number_active.classList.remove('active');
-            }
-
-            numbers[idx].classList.add('active');
-        }
-    }
-
-    hideCounters() {
-        if(!this.show_counters) {
-            this.carousel.querySelectorAll('.carousel__controllers__number').forEach((number) => {
-                number.remove();
-            });
-        }
     }
 }

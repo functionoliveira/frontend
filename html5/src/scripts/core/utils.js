@@ -49,7 +49,7 @@ class Utils {
         for(var attr in styles) {
             this.style[attr] = styles[attr];
         }
-    }
+    } 
     clearStyle() {
         this.style = '';
     }

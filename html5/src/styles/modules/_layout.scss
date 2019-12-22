@@ -1,4 +1,23 @@
 body { 
     margin: 0;
     padding: 0;
+
+    #carousel_0 {
+        .simple-card {
+            margin-right: 2vw;
+        }
+    }
+    #carousel_1 {
+        width: 100%;
+        .simple-card {
+            margin-right: 2vw;
+        }
+    }
+
+    #cycle_carousel {
+        width: 100%;
+        .simple-card {
+            margin-right: 2vw;
+        }
+    }
 }

@@ -33,6 +33,17 @@ body {
         line-height: 1.5;
     }
 
+    .text-field, 
+    .checkbox-field, 
+    .select-field, 
+    .textarea-field {
+        * {
+            font-size: 1rem;
+            font-family: serif;
+            line-height: 1.25;
+        }
+    }
+
     section {
         display: flex;
         flex-wrap: wrap;

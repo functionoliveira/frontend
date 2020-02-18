@@ -2,7 +2,7 @@
     position: relative;
     width: 120px;
     height: 50px;
-    border: 2px solid #1141e4;
+    border: 1px solid #1141e4;
     border-radius: 2px;
     outline: none;
     background: transparent;
@@ -18,21 +18,54 @@
     &:hover {
         color: white;
         box-shadow: 0px 0px 3px 1px rgba(10, 10, 10, .2);
+
+        .ink-hover {
+            opacity: 1;
+            transform: scaleY(2.5);
+        }
+    }
+
+    .ink-hover {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #1141e4;
+        width: 120px;
+        height: 120px;
+        transform: scaleY(0);
+        transition: 0.65s all ease-in-out;
+        z-index: -2;
     }
 
     .ink {
         display: block;
         position: absolute;
-        background: #1141e4;
+        background: #f5f5f5;
         border-radius: 100%;
         width: 120px;
         height: 120px;
         transform: scale(0);
         transition: 0.65s all ease-in-out;
         z-index: -1;
+
         &.anime {
-            opacity: 0.8;
-            transform: scale(2.5);
+            -webkit-animation: ripple 0.65s ease-in-out;
+            animation: ripple 0.65s ease-in-out;
         }
     }
+
+    @-webkit-keyframes ripple {
+        100% {
+          opacity: .01;
+          transform: scale(2.5);
+        }
+      }
+      
+      @keyframes ripple {
+        100% {
+          opacity: .01;
+          transform: scale(2.5);
+        }
+      }
 }

@@ -3,7 +3,7 @@
     display: flex;
     align-items: center; 
     width: 500px;
-    height: 50px;		
+    height: 60px;		
     margin-bottom: 35px;
     background-color: #f5f5f5;
     cursor: text;
@@ -30,7 +30,7 @@
     &.focus-within {
         box-shadow: -2px 2px 8px 0 rgba(0,0,0,0.1); 
 
-        .field-text__label {
+        .text-field__label {
             top: 8px;
             transform: none;
         }

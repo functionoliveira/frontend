@@ -3,7 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     width: 500px;
-    height: 50px;
+    height: 60px;
     transition: .4s box-shadow ease-in-out;
     
     * {
@@ -57,7 +57,7 @@
             display: flex;
             align-items: center;
             width: inherit;
-            height: 50px;
+            height: 60px;
             padding: 0 20px;
             color: #323232;
             background: #f5f5f5;
@@ -78,12 +78,13 @@
     }
 
     &.open {
-        .field-select__options {
+        .select-field__options {
+            visibility: visible;
             overflow-x: hidden;
-            box-shadow: -2px 2px 8px 0 rgba(0,0,0,0.1);
+            // box-shadow: -2px 2px 8px 0 rgba(0,0,0,0.1);
         }
 
-        .field-select__base__arrow {
+        .select-field__base__arrow {
             transform: rotate(180deg);
         }
     }
